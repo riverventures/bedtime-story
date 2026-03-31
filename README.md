@@ -4,13 +4,13 @@ Personalized bedtime stories where your kid is the hero. An [OpenClaw](https://g
 
 ## What it does
 
-Your kid picks who they want to be tonight. The AI writes a story with them as the main character, generates an illustration, and gives you a printable page. Over time, you build a physical storybook together.
+Your kid picks who they want to be tonight. The AI writes a story with them as the main character, generates character-consistent watercolor illustrations, and gives you a printable landscape picture book. Over time, you build a physical storybook together.
 
 ```
-"Nina wants to be a princess tonight"
+"Nina wants to be friends with a flamingo tonight"
 ```
 
-→ 3-minute story where Princess Nina rescues a sleepy bunny, plus a watercolor illustration, delivered as a printable A4 PDF.
+→ 9-page landscape picture book where Nina meets a flamingo by the pool, with her Nani tucking her in at the end. Full-bleed watercolor illustrations, one line of story per page.
 
 ## Install
 
@@ -21,43 +21,71 @@ openclaw skill add riverventures/bedtime-story
 ## Features
 
 - **Your kid is the hero.** Every story uses their real name and puts them at the center.
-- **Age-calibrated.** Under 2: simple sensory stories, 200 words. Ages 3-5: problem-solution arcs, silly humor. Ages 6+: real narrative with twists.
-- **Character picker.** Princess, superhero, astronaut, pirate, dinosaur rider, scientist, chef — or anything they dream up.
-- **Illustrated.** Each story gets a matching illustration (watercolor, Pixar-style, or coloring page).
-- **Printable.** A4 PDF with illustration + story text. Print nightly, collect into a book.
-- **Continuity mode.** Same magical world across nights. Recurring characters. "Remember when Nina found the golden key?"
-- **Voice narration.** Optional audio version via ElevenLabs or system TTS.
-- **Always ends with sleep.** These are bedtime stories. They're engineered to make kids want to close their eyes.
+- **Character-consistent illustrations.** Describe your child once — hair, skin, eyes, outfit. The skill generates a hero reference image and passes it to every page so your kid looks the same throughout.
+- **Age-calibrated.** Under 2: simple sensory stories, 8-10 pages, one line each. Ages 3-5: problem-solution arcs. Ages 6+: real narrative with twists.
+- **Landscape picture book format.** Full-bleed illustration fills 90% of each page. One line of story at the bottom. Looks like a real children's book.
+- **Family members included.** Describe grandma, grandpa, siblings, pets — they appear as recurring characters.
+- **Printable.** Landscape A4 PDF. Print, staple, done.
+- **Anti-duplication guardrails.** Built-in prompt engineering to prevent the AI from cloning your child in the same illustration.
+- **Voice narration.** Optional audio version via ElevenLabs.
+- **Always ends with sleep.** Engineered to make kids want to close their eyes.
 
-## Quick Start
+## First Time Setup
 
-First time: tell me your child's name, age, and favorite things. I'll save the profile.
-
-Every night: just tell me who they want to be. I handle the rest.
-
-## Storybook Builder
-
-After a few weeks of nightly stories, ask me to compile them into a book:
+Tell me about your child:
 
 ```
-"Compile Nina's storybook"
+Name: Nina
+Age: 19 months
+Hair: straight, short, dark brown
+Skin: light olive
+Eyes: big, dark brown
+Features: tiny gold stud earrings
+Default outfit: light pink dress with white flowers
+Favorites: birds, flamingos, cats, pool, tomatoes
+Family:
+  - Nani (grandmother): Indian, early 50s, dark brown hair, blue cardigan and jeans
+  - Nanu (grandfather): [description]
+  - Masie (aunt): [description]
+Avoid: nothing scary, no loud noises
 ```
 
-→ Multi-page PDF with cover page, all stories and illustrations, ready to print and bind.
+After that, every night just say who they want to be.
+
+## Output
+
+| Feature | Detail |
+|---|---|
+| Orientation | Landscape (11 x 8.5 in) |
+| Illustration | 90% of page, full-bleed, watercolor |
+| Text | 10% bottom strip, Georgia 42pt, black on white |
+| Pages | 8-10 (under 2), 10-15 (older) |
+| Format | Multi-page PDF |
+| Character consistency | Hero reference image + anchor string on every page |
+
+## How Character Consistency Works
+
+1. You describe your child's appearance once
+2. The skill generates a **hero reference image** — a front-facing portrait in the story's art style
+3. That reference image is passed as input to **every page generation** alongside the scene prompt
+4. An identical character description (anchor string) is included in every prompt
+5. Anti-duplication guardrails prevent the model from rendering the child twice
+
+This isn't perfect — AI image generation still has drift. But it's significantly better than generating each page independently.
 
 ## Examples
 
 | Request | Output |
 |---|---|
-| "Nina wants to be a princess" (19mo) | 200-word sensory story, sleepy bunny, watercolor illustration |
-| "Liam wants to be an astronaut" (4yr) | 500-word adventure on Planet Banana, silly aliens, full color illustration |
-| "Maya wants to be a detective" (7yr) | 1000-word mystery in her school, plot twist, pencil sketch illustration |
+| "Nina wants to be friends with a flamingo" (19mo) | 9 pages, pool party, Nani tucks her in |
+| "Liam wants to be an astronaut" (4yr) | 12 pages, discovers Planet Banana, silly aliens |
+| "Maya wants to be a detective" (7yr) | 15 pages, solves mystery at school, plot twist |
 
 ## Requirements
 
-- Google API key (Gemini for story illustration)
-- Python 3.9+ with Pillow (for PDF generation)
-- Optional: ElevenLabs API key (for voice narration)
+- Google API key (Gemini for illustrations)
+- Python 3.9+ with Pillow (for PDF assembly)
+- Optional: ElevenLabs API key (voice narration)
 - Optional: printer for nightly printouts
 
 ## Why this exists
