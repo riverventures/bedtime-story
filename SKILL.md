@@ -1,21 +1,24 @@
 ---
 name: bedtime-story
-description: Generate personalized bedtime stories where a child is the hero, plus character-consistent illustrations and a printable landscape picture-book PDF. Use when the user asks for a bedtime story, kids story, personalized story, story for a child, illustrated children’s story, or a reusable nightly story routine.
+description: Generate personalized bedtime stories where a child is the hero, with age-calibrated writing, character-consistent illustrations, and a printable landscape picture-book PDF. Use when the user asks for a bedtime story, kids story, personalized story, story for a child, illustrated children’s story, bedtime book, nightly story routine, or wants to reuse a saved child profile for repeat story generation.
 ---
 
 # bedtime-story
 
-Generate one bedtime story at a time. Keep the skill focused on: child profile → short age-appropriate story → consistent illustrations → printable PDF.
+Generate one bedtime story at a time. Keep the skill focused on: child profile → story plan → short age-appropriate story → consistent illustrations → printable PDF.
 
 ## Workflow
 
 1. Collect or reuse the child profile.
 2. Ask only for tonight’s theme if the profile already exists.
-3. Build a single character anchor string for the child.
-4. Generate one hero reference image.
-5. Write the story as one beat per page.
+3. Plan the story first: title, page count, one beat per page, and one final line per page.
+4. Build a single character anchor string for the child.
+5. Generate one hero reference image.
 6. Generate one illustration per page using the same anchor string and the hero reference.
 7. Assemble a landscape PDF.
+8. Run a final quality check for page count, tone, and duplicate-character errors.
+
+Read `references/workflow.md` before executing the full run.
 
 ## Child profile
 
@@ -39,10 +42,11 @@ This is the fragile part.
 - Add an anti-duplication guardrail to every prompt.
 
 Read `references/image-prompts.md` when generating images.
+Use `scripts/prepare_story_inputs.py` when it helps normalize the profile, anchor string, and cleaned story lines instead of recreating those helper artifacts manually.
 
 ## Story writing
 
-Keep the story strongly age-calibrated.
+Keep the story strongly age-calibrated and lock the page beats before generating page art.
 
 - For toddlers, optimize for short lines, sensory detail, repetition, familiar people, and a calm ending.
 - Keep the child active, not passive.
